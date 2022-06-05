@@ -1,4 +1,5 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:quizapp/quiz_model.dart';
 import 'package:quizapp/widgets/next_question_button.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   //Quiz database
   final List<Questions> _questions = [
+
     Questions(
       id: '1', 
       title: 'Quem é o atual presidente do Brasil?', 
@@ -37,7 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   int index = 0;
+  int score = 0;
   bool isClicked = false;
+  bool answerAlreadyClicked = false;
 
   void nextQuestion(){
     if (index == _questions.length -1){
@@ -46,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if(isClicked) {
     setState(() {
       isClicked = false;
+      answerAlreadyClicked =false;
       index++;
     });
   }else{
@@ -61,11 +66,19 @@ class _HomeScreenState extends State<HomeScreen> {
  }
 }
 
-
-  void changeAlternativeColor(){
+  void checkPlayerAnswer(bool value) {
+    if(answerAlreadyClicked) {
+      return;
+    }else {
+    if(value == true) {
+      score++;
+    }
     setState(() {
       isClicked = true;
+      answerAlreadyClicked = true;
     });
+     debugPrint('Errou');
+    }
   }
 
   @override
@@ -76,6 +89,12 @@ class _HomeScreenState extends State<HomeScreen> {
         shadowColor: Colors.transparent,
         title: const Text('Flutter Quiz'),
         backgroundColor: kQuizScaffoldColor,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text('$score Pontos'),
+            ),
+        ],
       ),
       body: Container(
         width: double.infinity,
@@ -90,11 +109,13 @@ class _HomeScreenState extends State<HomeScreen> {
             const Divider(color: Colors.black,),
             const SizedBox(height: 15.0,),
             for(int i = 0; i< _questions[index].alternative.length; i++)
-            QuizAlternatives(
-              onClick: changeAlternativeColor,
-              option:_questions[index].alternative.keys.toList()[i],
-              color: isClicked ? 
-              _questions[index].alternative.values.toList()[i] == true ? kCorrectOption : kWrongOption :kNotClicked,
+            GestureDetector(
+              onTap: () => checkPlayerAnswer(_questions[index].alternative.values.toList()[i]),
+              child: QuizAlternatives(
+                option:_questions[index].alternative.keys.toList()[i],
+                color: isClicked ? 
+                _questions[index].alternative.values.toList()[i] == true ? kCorrectOption : kWrongOption :kNotClicked,
+              ),
             ),
           ],
         ),
