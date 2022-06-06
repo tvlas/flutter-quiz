@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class ScoreBoard extends StatelessWidget {
-  const ScoreBoard({ Key? key, required this.finalResult, required this.questionLength }) : super(key: key);
+  const ScoreBoard({ Key? key, required this.finalResult, required this.questionLength, required this.onPressed }) : super(key: key);
   final int finalResult;
   final int questionLength;
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -35,6 +36,20 @@ class ScoreBoard extends StatelessWidget {
               fontWeight: FontWeight.bold
               ),
             ),
+        ),
+        const SizedBox(height: 25.0,),
+        Container(
+          width: double.infinity,
+          height: 27,
+          decoration: BoxDecoration(
+            color: kBaseColor,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [BoxShadow(color: kQuizScaffoldColor, spreadRadius: 3.0, blurRadius: 7.0)]
+          ),
+          child: GestureDetector(
+            onTap: onPressed,
+            child: const Text('Jogar novamente', textAlign: TextAlign.center,style: TextStyle(color: Colors.white, fontSize: 18.0),),
+          ),
         ),
       ],
      ),

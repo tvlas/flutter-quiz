@@ -54,9 +54,23 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isClicked = false;
   bool answerAlreadyClicked = false;
 
+  void resetGame() {
+    setState(() {
+      index = 0;
+      score = 0;
+      isClicked = false;
+      answerAlreadyClicked = false;
+    });
+    Navigator.pop(context);
+  }
+
   void nextQuestion(){
     if (index == _questions.length -1){
-      showDialog(context: context, builder: (context) => ScoreBoard(finalResult: score, questionLength: _questions.length,));
+      showDialog(context: context,barrierDismissible: false, builder: (context) => ScoreBoard(
+        finalResult: score, 
+        questionLength: _questions.length,
+        onPressed: resetGame,
+        ));
     }else {
       if(isClicked) {
     setState(() {
