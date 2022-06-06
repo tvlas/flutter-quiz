@@ -14,9 +14,11 @@ class QuestionWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.centerLeft,
       child: Text(
-        'Pergunta ${indexQuestion + 1} de $questionAmount:\n$question',
+        'Pergunta ${indexQuestion + 1} de $questionAmount\n$question',
         style: const TextStyle(
           fontSize: 21.0,
+          fontWeight: FontWeight.bold,
+          color: Colors.white
         ),
       ),
       

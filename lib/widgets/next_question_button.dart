@@ -23,7 +23,7 @@ class NextQuestion extends StatelessWidget {
           style: TextStyle(
             fontSize: 15.0,
             fontWeight: FontWeight.w600,
-            color: kBaseColor
+            color: Colors.white
           ),
           )
       ),

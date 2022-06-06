@@ -15,6 +15,8 @@ class QuizAlternatives extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 21.0,
+            color: Colors.white,
+            fontWeight: FontWeight.w600
     
           ),
         ),
